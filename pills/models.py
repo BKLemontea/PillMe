@@ -8,7 +8,7 @@ class Pill(core_models.TimeStampedModel):
     cycle = models.IntegerField(blank=True, null=True)
     dosage = models.IntegerField(blank=True, null=True)
     usage = models.TextField(blank=True, null=True)
-    user = models.ForeignKey("users.User", related_name="pills", on_delete=models.CASCADE)
+    user = models.ForeignKey("users.User", related_name="pills", on_delete=models.CASCADE, null=True)
     
     def __str__(self):
         return self.name

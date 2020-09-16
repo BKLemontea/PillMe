@@ -25,7 +25,11 @@ SECRET_KEY = 'oc5v4zs+&yxnbmu0%$e-x!$#lt*ji61r9ystn28g5-q^7q=y(v'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    'bklemontea.duckdns.org'
+]
 
 
 # Application definition
@@ -63,7 +67,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -131,4 +135,4 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = "users.User"
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")

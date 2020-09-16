@@ -1,6 +1,8 @@
 ### except uploads ###
 uploads/
 uploads/*
+media/
+media/*
 
 ### certificates ###
 #*.pem

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+    Home
+{% endblock page_title %}
+
+{% block content %}
+
+<div>
+    <p>이미지 : {{pill.file.url}}</p>
+    <p>약 이름 : {{pill.name}}</p>
+    <p>복용 주기 : {{pill.cycle}}</p>
+    <p>복용량 : {{pill.dosage}}</p>
+    <p>복용법 : {{pill.usage}}</p>
+    <p>User : {{pill.user}}</p>
+    <p>{{pill.created}}</p>
+</div>
+
+<a href="{% url 'pills:add' pk=pill.pk %}">인벤토리에 추가하기</a>
+
+{% endblock content %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+    Home
+{% endblock page_title %}
+
+{% block content %}
+
+<form method="post" enctype="multipart/form-data" action="{% url 'pills:camera' %}">
+    {% csrf_token %}
+    <label for="camera">사진 촬영</label>
+    <input type="file" id="camera" name="camera" capture="camera" accept="image/*" text="test" style="visibility:hidden">
+    <input type="submit" value="전송">
+</form>
+
+{% endblock content %}
