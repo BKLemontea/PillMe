@@ -16,6 +16,9 @@
     <p>{{pill.created}}</p>
 </div>
 
-<a href="{% url 'pills:add' pk=pill.pk %}">인벤토리에 추가하기</a>
+{% if not pill.user %}
+    <a href="{% url 'pills:add' pk=pill.pk %}" class="btn">인벤토리 추가</a>
+{% endif %}
+
 
 {% endblock content %}
