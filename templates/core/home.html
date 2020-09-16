@@ -8,11 +8,12 @@
 
 <form method="post" enctype="multipart/form-data" action="{% url 'pills:camera' %}">
     {% csrf_token %}
-    <div>
-        <label for="camera" class="btn">파일 선택</label>
-        <label for="submit" class="btn">전송</label>
+    <div class="my-4 flex flex-col">
+        <label for="camera" class="btn md:w-64">파일 선택</label>
+        <img class="rounded-lg md:w-64 w-full my-2" id="img" />
+        <label for="submit" class="btn md:w-64">전송</label>
     </div>
-    <div>
+    <div class="hidden">
         <input type="file" id="camera" name="camera" capture="camera" accept="image/*" text="test">
         <input type="submit" id="submit" value="전송">
     </div>

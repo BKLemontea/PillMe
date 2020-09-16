@@ -1,7 +1,54 @@
-<nav>
-    <ul>
-        <li>
-            <a href={% url 'core:home' %}>Home</a>
-        </li>
-    </ul>
-</nav>
+{% load static %}
+<div class="flex w-full z-30 fixed">
+  <div @click.away="open = false" class="flex flex-col md:flex-row w-full text-gray-700 bg-white flex-shrink-0 shadow-md border rounded-b-lg" x-data="{ open: false }">
+    <div class="flex-shrink-0 px-8 py-2 flex flex-row items-center justify-between">
+      
+      <a href="{% url 'core:home' %}" class="w-full">
+        <img class="duration-300 h-12" src="{% static 'img/logo.png' %}" />
+      </a>
+
+      <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline h-12 w-12 flex justify-center items-center" @click="open = !open">
+        <svg fill="currentColor" viewBox="0 0 20 20" class="w-8 h-8">
+          <path x-show="!open" fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+          <path x-show="open" fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+      </button>
+
+    </div>
+
+    <nav :class="{'block': open, 'hidden': !open}" class="flex-grow px-4 md:px-0 md:pr-4 pb-4 md:pb-0 md:block md:flex md:flex-row md:justify-between md:items-center">
+
+      <form id="search" method="GET" action="#" class="w-full flex md:hidden">
+        <div class="flex flex-row px-4 py-2 mt-2 text-sm font-semibold text-gray-600 bg-gray-200 rounded-lg w-full">
+            <input class="bg-gray-200 focus:outline-none flex-1" placeholder="Search" type="text" name="search">
+            <button class="flex items-center justify-center text-sm font-semibold bg-gray-300 h-6 px-2 rounded-full ml-auto focus:outline-none">
+                <i class="fas fa-search"></i>
+            </button>
+        </div>
+      </form>
+    
+      <div class="relative md:flex md:flex-row md:items-center z-10 md:border-l-2 md:pl-4 md:space-x-2">
+      
+      </div>
+
+      <!--Login, Logout-->
+      <div class="relative md:ml-10 md:w-32 z-0 md:mr-6">
+      {% if user.is_authenticated %}
+        <a href="#"
+          class="login-btn md:mt-0 focus:outline-none focus:shadow-outline hover:bg-red-700 focus:bg-red-700 bg-red-500">
+          <i class="fa fa-sign-out-alt flex items-center transform scale-125"></i>
+          <span class="ml-2">Logout</span>
+        </a>
+      {% else %}
+        <a href="#"
+          class="login-btn md:mt-0 focus:outline-none focus:shadow-outline hover:bg-green-700 focus:bg-green-700 bg-green-500">
+          <i class="fa fa-sign-in-alt flex items-center transform scale-125"></i>
+          <span class="ml-2">Login</span>
+        </a>
+      {% endif %}
+      </div>
+      <!--Login, Logout-->
+
+    </nav>
+  </div>
+</div>

@@ -2,7 +2,11 @@
 @tailwind components;
 
 .btn{
-    @apply bg-indigo-300 rounded-full px-4 py-2;
+    @apply bg-indigo-300 rounded-full px-4 py-2 text-center w-full;
+}
+
+.login-btn {
+    @apply mt-2 shadow-md text-white flex justify-center duration-300 uppercase px-4 py-2 text-sm font-semibold bg-transparent rounded-lg;
 }
 
 @tailwind utilities;
