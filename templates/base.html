@@ -19,12 +19,13 @@
     </head>
 
     <body>
-    {% include "partials/nav.html" %}
-    <div class="w-full h-20 opacity-0"></div>
-    <div class="mx-10">
-        {% block content %}
-        {% endblock content %}
-    </div>
+        {% include "partials/nav.html" %}
+        <div class="w-full h-20 opacity-0"></div>
+        <div class="mx-10">
+            {% block content %}
+            {% endblock content %}
+        </div>
+        {% include "partials/footer.html" %}
     </body>
 
 </html>
