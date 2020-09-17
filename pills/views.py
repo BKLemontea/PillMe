@@ -3,8 +3,6 @@ from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView
 from django.contrib import messages
 from . import models
-from threading import Timer
-import os
 
 # Create your views here.
 class PillDetailView(DetailView):
