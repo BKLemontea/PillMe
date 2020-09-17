@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
 from django.views.generic import DetailView
+from django.contrib import messages
 from . import models
 from threading import Timer
 import os
@@ -13,17 +14,6 @@ class PillDetailView(DetailView):
     object_name = "pill"
     
 def camera(request):
-    def delete():
-        try:
-            pill.refresh_from_db()
-            if pill.user == None:
-                url = '.' + pill.file.url
-                os.remove(url)
-                pill.delete()
-            pass
-        except models.Pill.DoesNotExist:
-            pass   
-    
     file = request.FILES.get("camera")
     
     name = "약 이름"
@@ -31,35 +21,12 @@ def camera(request):
     dosage = 1
     usage = "복용법"
     
-    pill = models.Pill.objects.create(
-        file = file,
-        name = name,
-        cycle = cycle,
-        dosage = dosage,
-        usage = usage,
-    )
-    
-    Timer(3600, delete).start()
-    
-    return redirect(reverse("pills:detail", kwargs={'pk':pill.pk}))
-
-@login_required
-def add_inventory(request, pk):
-    print("인벤토리 추가")
     try:
-        pill = models.Pill.objects.get(pk=pk)
-        pill.user = request.user
-        pill.save()
+        pill = models.Pill.objects.get(name=name)
+        messages.success(request, "알약 검색을 완료했습니다.")
         return redirect(reverse("pills:detail", kwargs={'pk':pill.pk}))
-    except models.Pill.DoesNotExist:
+    except models.Pill.objects.DoesNotExist:
+        messages.error(request, "알약을 찾지 못했습니다.")
         return redirect(reverse("core:home"))
-
-@login_required
-def delete_inventory(request, pk): 
-    try:
-        pill = models.Pill.objects.get(pk=pk)
-        pill.delete()
-        return redirect(reverse("core:home"))
-    except models.Pill.DoesNotExist:
-        return redirect(reverse("core:home"))
+    
     

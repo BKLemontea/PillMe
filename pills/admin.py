@@ -10,13 +10,10 @@ class PillAdmin(admin.ModelAdmin):
         "name",
         "cycle",
         "dosage",
-        "created",
-        "user",
     )
     
     list_filter = (
         "name",
-        "user",
     )
     
     def get_thumnnail(self, obj):

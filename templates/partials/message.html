@@ -1,0 +1,17 @@
+{% if messages %}
+    <ul class="fixed mx-auto z-50 top-0 left-0 right-0 flex justify-center pointer-events-none opacity-75">
+        {% for message in messages %}
+            {%  if forloop.first  %}
+                <li class="message font-medium border-2 border-gray-900 bg-gray-700 rounded-full shadow-lg text-white py-2 px-4 w-64 text-center 
+                    {% if message.tags %}
+                    {{ message.tags }}
+                    {% endif %}
+                ">
+                    {% autoescape on %}
+                        {{message| linebreaksbr}}
+                    {% endautoescape %}
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}

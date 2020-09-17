@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block page_title %}
-    Home
+{{pill.name}}
 {% endblock page_title %}
 
 {% block content %}
@@ -12,23 +12,20 @@
     <p>복용 주기 : {{pill.cycle}}</p>
     <p>복용량 : {{pill.dosage}}</p>
     <p>복용법 : {{pill.usage}}</p>
-    <p>User : {{pill.user}}</p>
-    <p>{{pill.created}}</p>
 </div>
 
 {% if user.is_authenticated %}
 <div class="my-4 w-full">
-    {% if not pill.user %}
-    <a href="{% url 'pills:add' pk=pill.pk %}">
+    {% if request.user not in pill.users.all %}
+    <a href="{% url 'users:add' pk=pill.pk %}">
         <div class="btn md:w-64">인벤토리 추가</div>
     </a>
     {% else %}
-    <a href="{% url 'pills:delete' pk=pill.pk %}">
+    <a href="{% url 'users:delete' pk=pill.pk %}">
         <div class="btn md:w-64 bg-red-300">인벤토리 삭제</div>
     </a>
     {% endif %}
 </div>
 {% endif %}
-
 
 {% endblock content %}

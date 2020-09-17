@@ -27,6 +27,7 @@ class User(AbstractUser):
     email_service = models.BooleanField(default=False)
     email_secret = models.CharField(max_length=20, default="", blank=True)
     login_method = models.CharField(choices=LOGIN_CHOICES, max_length=10, default=LOGIN_EMAIL)
+    inventory = models.ManyToManyField("pills.Pill", related_name="users", blank=True)
     
     def __str__(self):
         return self.name
