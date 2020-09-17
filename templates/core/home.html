@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block page_title %}
     Home
@@ -6,17 +7,32 @@
 
 {% block content %}
 
-<form method="post" enctype="multipart/form-data" action="{% url 'pills:camera' %}">
-    {% csrf_token %}
-    <div class="my-4 flex flex-col">
-        <label for="camera" class="btn md:w-64">파일 선택</label>
-        <img class="rounded-lg md:w-64 w-full my-2" id="img" />
-        <label for="submit" class="btn md:w-64">전송</label>
+<section class="text-gray-700 body-font">
+  <div class="container mx-auto flex px-5 py-10 md:flex-row flex-col items-center">
+    <div class="md:w-1/3 w-5/6 mb-10 md:mb-0">
+      <img class="duration-300 w-full object-cover object-center rounded-lg shadow-md bg-cover transform scale-100 hover:scale-105 hover:shadow-lg" src="{% static 'img/Home.PNG' %}">
     </div>
-    <div class="hidden">
-        <input type="file" id="camera" name="camera" capture="camera" accept="image/*" text="test">
-        <input type="submit" id="submit" value="전송">
+    <div class="md:flex-grow md:pl-24 flex flex-col md:items-start md:text-left items-center text-center">
+        <div class="w-full text-center">
+            <h1 class="duration-300 title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900 transform scale-100 hover:scale-105">Programming and Network</h1>
+            <p class="mb-8 leading-relaxed">지금 계속해서 업데이트 하고 있습니다.</p>
+        </div>
+        
+        <form method="post" enctype="multipart/form-data" action="{% url 'pills:camera' %}" class="md:mt-12 w-full flex flex-col items-center text-center">
+            {% csrf_token %}
+            <label for="camera" class="btn md:w-64 hover:scale-105 hover:shadow-lg bg-indigo-400 text-white font-semibold">파일 선택</label>
+            <img class="rounded-lg md:w-64 w-full my-2" id="img" />
+            <label for="submit" class="btn md:w-64 hover:scale-105 hover:shadow-lg bg-indigo-400 text-white font-semibold">전송</label>
+            <p class="text-sm mt-2 text-gray-500 w-full">사진으로 알약을 검색해보세요.</p>
+
+            <div class="hidden">
+                <input type="file" id="camera" name="camera" capture="camera" accept="image/*" text="test">
+                <input type="submit" id="submit" value="전송">
+            </div>
+        </form>
+
     </div>
-</form>
+  </div>
+</section>
 
 {% endblock content %}

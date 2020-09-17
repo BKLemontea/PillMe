@@ -6,26 +6,108 @@
 
 {% block content %}
 
-<div>
-    <p>이미지 : {{pill.file.url}}</p>
-    <p>약 이름 : {{pill.name}}</p>
-    <p>복용 주기 : {{pill.cycle}}</p>
-    <p>복용량 : {{pill.dosage}}</p>
-    <p>복용법 : {{pill.usage}}</p>
-</div>
+<section class="text-gray-700 body-font">
+    <div class="container mx-auto flex px-5 py-10 flex-col items-center">
+        <div class="flex flex-col md:flex-row w-full md:justify-between">
+            <img class="w-full md:w-1/3 rounded-lg shadow-md" src="{{pill.image.url}}">
 
-{% if user.is_authenticated %}
-<div class="my-4 w-full">
-    {% if request.user not in pill.users.all %}
-    <a href="{% url 'users:add' pk=pill.pk %}">
-        <div class="btn md:w-64">인벤토리 추가</div>
-    </a>
-    {% else %}
-    <a href="{% url 'users:delete' pk=pill.pk %}">
-        <div class="btn md:w-64 bg-red-300">인벤토리 삭제</div>
-    </a>
-    {% endif %}
-</div>
-{% endif %}
+            <div class="mt-5 md:mt-0 ml-0 md:ml-5 bg-gray-300 rounded-lg w-full md:w-2/3 py-4 md:px-10 px-4 flex items-center shadow-md">
+                <table class="w-full text-left">
+                    <tbody>
+                        <tr class="h-10">
+                            <th>품명/일련번호</th>
+                            <td>
+                                {{pill.name}} 
+                                {% if pill.serial_number %}
+                                | {{pill.serial_number}}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr class="h-10">
+                            <th>제조사/일련번호</th>
+                            <td>
+                                {{pill.company_name}}
+                                {% if company_serial_number %}
+                                | {{company_serial_number}}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr class="h-10">
+                            <th>전문일반구분</th>
+                            <td>{{pill.sortation}}</td>
+                        </tr>
+                        <tr class="h-10">
+                            <th>성상</th>
+                            <td>{{pill.nature}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="mt-5 bg-gray-300 rounded-lg w-full py-6 md:px-10 px-4 flex items-center shadow-md">
+            <table class="w-full text-left">
+                <tbody>
+                    <tr class="h-8">
+                        <th>표시</th>
+                        <td class="font-semibold">앞면</td>
+                        <td>{{pill.mark_front}}</td>
+                        <td class="font-semibold">뒷면</td>
+                        <td>{{pill.mark_back}}</td>
+                    </tr>
+
+                    <tr class="h-8">
+                        <th>모양</th>
+                        <td>{{pill.shape}}</td>
+                    </tr>
+
+                    <tr class="h-8">
+                        <th>색상</th>
+                        <td class="font-semibold">앞면</td>
+                        <td>{{pill.color_front}}</td>
+                        <td class="font-semibold">뒷면</td>
+                        <td>{{pill.color_back}}</td>
+                    </tr>
+
+                    <tr class="h-8">
+                        <th>크기</th>
+                        <td class="font-semibold">장축</td>
+                        <td>{{pill.major_axis}}</td>
+                        <td class="font-semibold">단축</td>
+                        <td>{{pill.minor_axis}}</td>
+                    </tr>
+
+                    <tr class="h-8">
+                        <th></th>
+                        <td class="font-semibold">두께</td>
+                        <td>{{pill.thickness}}</td>
+                    </tr>
+
+                    {% if date %}
+                    <tr class="h-8">
+                        <th>변경일자</th>
+                        <td>{{pill.date}}</td>
+                    </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if user.is_authenticated %}
+        <div class="my-4 w-full md:flex md:justify-end">
+            {% if request.user not in pill.users.all %}
+            <a href="{% url 'users:add' pk=pill.pk %}">
+                <div class="btn md:w-64 text-white font-semibold bg-indigo-400 hover:scale-105 shadow-lg">인벤토리 추가</div>
+            </a>
+            {% else %}
+            <a href="{% url 'users:delete' pk=pill.pk %}">
+                <div class="btn md:w-64 text-white font-semibold bg-red-400 hover:scale-105 shadow-lg">인벤토리 삭제</div>
+            </a>
+            {% endif %}
+        </div>
+        {% endif %}
+
+    </div>
+</section>
 
 {% endblock content %}

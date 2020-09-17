@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 {% load static %}
 
-<html lang="en">
+<html lang="en" class="relative min-h-full">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
@@ -18,14 +18,12 @@
         <title>PillMe | {% block page_title %}{% endblock page_title %}</title>
     </head>
 
-    <body>
+    <body class="flex-col min-h-full pb-12">
         {% include "partials/message.html" %}
         {% include "partials/nav.html" %}
         <div class="w-full h-20 opacity-0"></div>
-        <div class="mx-10">
-            {% block content %}
-            {% endblock content %}
-        </div>
+        {% block content %}
+        {% endblock content %}
         {% include "partials/footer.html" %}
     </body>
 

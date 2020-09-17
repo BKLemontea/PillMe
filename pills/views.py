@@ -14,10 +14,7 @@ class PillDetailView(DetailView):
 def camera(request):
     file = request.FILES.get("camera")
     
-    name = "약 이름"
-    cycle = 1
-    dosage = 1
-    usage = "복용법"
+    name = "가스트로카인정(옥세타자인)"
     
     try:
         pill = models.Pill.objects.get(name=name)
