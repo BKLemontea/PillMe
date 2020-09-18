@@ -18,9 +18,9 @@ class Pill(models.Model):
     line_front = models.CharField(max_length=10, blank=True, null=True)
     line_back = models.CharField(max_length=10, blank=True, null=True)
     
-    major_axis = models.DecimalField(max_digits=5, decimal_places=3, blank=True, null=True)
-    minor_axis = models.DecimalField(max_digits=5, decimal_places=3, blank=True, null=True)
-    thickness = models.DecimalField(max_digits=5, decimal_places=3, blank=True, null=True)
+    major_axis = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    minor_axis = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    thickness = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
     
     date = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
     

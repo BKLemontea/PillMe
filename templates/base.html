@@ -8,20 +8,13 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
         <link rel="stylesheet", href="{% static "css/styles.css" %}">
-        <!--nav-->
-        <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-        <!--nav-->
-        <!--image preview-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="{% static "js/preview.js" %}"></script>
-        <!--image preview-->
         <title>PillMe | {% block page_title %}{% endblock page_title %}</title>
     </head>
 
-    <body class="flex-col min-h-full pb-12">
+    <body class="flex flex-col min-h-full pb-12">
         {% include "partials/message.html" %}
         {% include "partials/nav.html" %}
-        <div class="w-full h-20 opacity-0"></div>
+        <div class="w-full h-12 opacity-0"></div>
         {% block content %}
         {% endblock content %}
         {% include "partials/footer.html" %}

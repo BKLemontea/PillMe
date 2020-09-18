@@ -8,31 +8,54 @@
 {% block content %}
 
 <section class="text-gray-700 body-font">
-  <div class="container mx-auto flex px-5 py-10 md:flex-row flex-col items-center">
-    <div class="md:w-1/3 w-5/6 mb-10 md:mb-0">
-      <img class="duration-300 w-full object-cover object-center rounded-lg shadow-md bg-cover transform scale-100 hover:scale-105 hover:shadow-lg" src="{% static 'img/Home.PNG' %}">
-    </div>
-    <div class="md:flex-grow md:pl-24 flex flex-col md:items-start md:text-left items-center text-center">
-        <div class="w-full text-center">
-            <h1 class="duration-300 title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900 transform scale-100 hover:scale-105">Programming and Network</h1>
-            <p class="mb-8 leading-relaxed">지금 계속해서 업데이트 하고 있습니다.</p>
-        </div>
-        
-        <form method="post" enctype="multipart/form-data" action="{% url 'pills:camera' %}" class="md:mt-12 w-full flex flex-col items-center text-center">
-            {% csrf_token %}
-            <label for="camera" class="btn md:w-64 hover:scale-105 hover:shadow-lg bg-indigo-400 text-white font-semibold">파일 선택</label>
-            <img class="rounded-lg md:w-64 w-full my-2" id="img" />
-            <label for="submit" class="btn md:w-64 hover:scale-105 hover:shadow-lg bg-indigo-400 text-white font-semibold">전송</label>
-            <p class="text-sm mt-2 text-gray-500 w-full">사진으로 알약을 검색해보세요.</p>
+  <div class="w-full bg-gray-500 bg-cover" style="
+    background-blend-mode: multiply;
+    background-position: center center;
+    background-image: url('https://images.unsplash.com/photo-1551127017-4c6752f4a022?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');
+  ">
+    <div class=" p-10  py-20  flex  flex-col  flex-wrap  justify-center  content-center">
+      <div class=" m-0  p-0  text-3xl  text-white  antialiased  text-center">Take a picture of the pill.</div>
+      <div class=" m-0  p-0  text-xl  text-white  antialiased  text-center">여긴 뭘 적을까</div>
 
-            <div class="hidden">
-                <input type="file" id="camera" name="camera" capture="camera" accept="image/*" text="test">
-                <input type="submit" id="submit" value="전송">
-            </div>
-        </form>
+      <form class="mt-3 flex flex-col items-center space-y-2 hidden" method="post" enctype="multipart/form-data" action="{% url 'pills:camera' %}">
+        {% csrf_token %}
+        <label for="camera" class="duration-300 p-2 w-56 md:w-64 bg-indigo-500 rounded-lg text-white hover:bg-indigo-400 text-center">
+          <i class="fa fa-camera"></i> Camera
+        </label>
+        <img class="duration-300 rounded-lg w-56 h-56 md:w-64 md:h-64 border-2 bg-black opacity-50" id="img" />
+        <label for="submit" class="duration-300 p-2 w-56 md:w-64 bg-indigo-500 rounded-lg text-white hover:bg-indigo-400 text-center">
+          <i class="fa fa-search"></i> Search
+        </label>
+        <div class="hidden">
+          <input type="file" id="camera" name="camera" capture="camera" accept="image/*" text="test">
+          <input type="submit" id="submit" value="전송">
+        </div>
+      </form>
+
+      <form class="mt-3 flex flex-col items-center space-y-2" method="POST" enctype="multipart/form-data" action="{% url 'pills:camera' %}">
+        {% csrf_token %}
+        <div id="showVideo" class="duration-300 p-2 w-56 md:w-64 bg-indigo-500 rounded-lg text-white hover:bg-indigo-400 text-center">
+          <i class="fa fa-camera"></i> Camera
+        </div>
+        <video class="duration-300 rounded-lg w-56 h-56 md:w-64 md:h-64 bg-black opacity-50" id="video" autoplay muted playsinline></video>
+        <canvas id="canvas"></canvas>
+        <div id="submit-btn" class="duration-300 p-2 w-56 md:w-64 bg-indigo-500 rounded-lg text-white hover:bg-indigo-400 text-center">
+          <i class="fa fa-search"></i> Search
+        </div>
+        <button class="duration-300 p-2 w-56 md:w-64 bg-indigo-500 rounded-lg text-white hover:bg-indigo-400 text-center">
+          <i class="fa fa-search"></i> Search
+        </button>
+      </form>
 
     </div>
   </div>
+
 </section>
+
+<!--image preview-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static "js/preview.js" %}"></script>
+<!--image preview-->
+<script src="{% static "js/cam.js" %}"></script>
 
 {% endblock content %}

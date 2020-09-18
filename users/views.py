@@ -1,11 +1,33 @@
 from django.shortcuts import render, redirect, reverse
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView
+from django.views.generic import ListView, FormView
 from django.contrib import messages
 from pills import models as pill_models
-from . import models
+from . import models, forms
 
 # Create your views here.
+class LoginView(FormView):
+    template_name = "users/login.html"
+    form_class = forms.LoginForm
+
+    def form_valid(self, form):
+        email = form.cleaned_data.get("email")
+        password = form.cleaned_data.get("password")
+        user = authenticate(self.request, username=email, password=password)
+        if user is not None :
+            login(self.request, user)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        messages.success(self.request, "Welcome " + self.request.user.name)
+        return reverse("core:home")
+    
+def log_out(request):
+    messages.success(request, "Good Bye " + request.user.name)
+    logout(request)
+    return redirect(reverse("core:home"))
+        
 @login_required
 def add_inventory(request, pk):
     pass

@@ -19,6 +19,7 @@ function handleImgFileSelect(e){
         var reader = new FileReader();
         reader.onload = function(e) {
             $("#img").attr("src", e.target.result);
+            $("#img").attr("class", "duration-300 rounded-lg w-56 h-56 md:w-64 md:h-64 border-2");
         }
         reader.readAsDataURL(f);
     });
