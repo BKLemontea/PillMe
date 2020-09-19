@@ -17,45 +17,36 @@
       <div class=" m-0  p-0  text-3xl  text-white  antialiased  text-center">Take a picture of the pill.</div>
       <div class=" m-0  p-0  text-xl  text-white  antialiased  text-center">여긴 뭘 적을까</div>
 
-      <form class="mt-3 flex flex-col items-center space-y-2 hidden" method="post" enctype="multipart/form-data" action="{% url 'pills:camera' %}">
+      <form class="relative mt-3 flex flex-col items-center justify-center space-y-3" method="POST" enctype="multipart/form-data" action="{% url 'pills:camera' %}">
         {% csrf_token %}
-        <label for="camera" class="duration-300 p-2 w-56 md:w-64 bg-indigo-500 rounded-lg text-white hover:bg-indigo-400 text-center">
+        <div id="showVideo" class="duration-300 transform scale-100 hover:scale-105 p-2 w-72 md:w-84 bg-indigo-500 rounded-lg text-white text-center">
           <i class="fa fa-camera"></i> Camera
-        </label>
-        <img class="duration-300 rounded-lg w-56 h-56 md:w-64 md:h-64 border-2 bg-black opacity-50" id="img" />
-        <label for="submit" class="duration-300 p-2 w-56 md:w-64 bg-indigo-500 rounded-lg text-white hover:bg-indigo-400 text-center">
-          <i class="fa fa-search"></i> Search
-        </label>
-        <div class="hidden">
-          <input type="file" id="camera" name="camera" capture="camera" accept="image/*" text="test">
-          <input type="submit" id="submit" value="전송">
         </div>
-      </form>
 
-      <form class="mt-3 flex flex-col items-center space-y-2" method="POST" enctype="multipart/form-data" action="{% url 'pills:camera' %}">
-        {% csrf_token %}
-        <div id="showVideo" class="duration-300 p-2 w-56 md:w-64 bg-indigo-500 rounded-lg text-white hover:bg-indigo-400 text-center">
-          <i class="fa fa-camera"></i> Camera
+        <div class="relative duration-300 rounded-lg w-72 h-72 md:w-84 md:h-84 flex justify-center items-center">
+          <div class="absolute w-full h-full bg-black rounded-lg opacity-75 z-0"></div>
+          <video id="video" class="w-full h-full z-10" autoplay muted playsinline></video>
         </div>
-        <video class="duration-300 rounded-lg w-56 h-56 md:w-64 md:h-64 bg-black opacity-50" id="video" autoplay muted playsinline></video>
-        <canvas id="canvas"></canvas>
-        <div id="submit-btn" class="duration-300 p-2 w-56 md:w-64 bg-indigo-500 rounded-lg text-white hover:bg-indigo-400 text-center">
-          <i class="fa fa-search"></i> Search
-        </div>
-        <button class="duration-300 p-2 w-56 md:w-64 bg-indigo-500 rounded-lg text-white hover:bg-indigo-400 text-center">
-          <i class="fa fa-search"></i> Search
+        <canvas id="canvas" class="hidden"></canvas>
+        <input type="hidden" id="image" name="image" />
+        
+        {% comment %} style="visibility:hidden" {% endcomment %}
+        <button id="submit-btn" class="duration-100 text-center border-2 border-gray-300 bg-white rounded-full h-12 w-12 flex justify-center items-center transform scale-100 hover:scale-110 shadow-lg hover:shadow-xl focus:outline-none">
+          <div class="h-10 w-10 border-2 border-gray-400 rounded-full flex justify-center">
+          </div>
         </button>
       </form>
 
     </div>
   </div>
-
 </section>
 
 <!--image preview-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="{% static "js/preview.js" %}"></script>
 <!--image preview-->
+<!--image cam-->
 <script src="{% static "js/cam.js" %}"></script>
+<!--image cam-->
 
 {% endblock content %}

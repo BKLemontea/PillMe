@@ -110,4 +110,68 @@
     </div>
 </section>
 
+<div class="mt-5 md:mt-0 ml-0 md:ml-5 bg-white shadow border border-gray-400 rounded-lg p-6 w-full md:w-2/3 md:px-10 flex">
+    <div class="grid gap-6 w-full">
+
+      <div class="border border-gray-400 rounded p-1">
+        <div class="-mt-3 absolute tracking-wider px-1 uppercase text-xs">
+          <p>
+            <label for="name" class="bg-white text-gray-600 px-1">품명 / 일련번호</label>
+          </p>
+        </div>
+        <p>
+          <span class="py-1 px-1 outline-none block h-full w-full">
+            {{pill.name}}
+            {% if pill.serial_number %}
+            | {{pill.serial_number}}
+            {% endif %}
+          </span>
+        </p>
+      </div>
+
+      <div class="border border-gray-400 rounded p-1">
+        <div class="-mt-3 absolute tracking-wider px-1 uppercase text-xs">
+          <p>
+            <label for="lastname" class="bg-white text-gray-600 px-1">제조사 / 일련번호</label>
+          </p>
+        </div>
+        <p>
+          <span class="py-1 px-1 outline-none block h-full w-full">
+            {{pill.company_name}}
+            {% if company_serial_number %}
+            | {{company_serial_number}}
+            {% endif %}
+          </span>
+        </p>
+      </div>
+
+      <div class="border border-gray-400 rounded p-1">
+        <div class="-mt-3 absolute tracking-wider px-1 uppercase text-xs">
+          <p>
+            <label for="username" class="bg-white text-gray-600 px-1">전문일반구분</label>
+          </p>
+        </div>
+        <p>
+          <span class="py-1 px-1 outline-none block h-full w-full">
+            {{pill.sortation}}
+          </span>
+        </p>
+      </div>
+
+      <div class="border border-gray-400 rounded p-1">
+        <div class="-mt-3 absolute tracking-wider px-1 uppercase text-xs">
+          <p>
+            <label for="password" class="bg-white text-gray-600 px-1">성상</label>
+          </p>
+        </div>
+        <p>
+          <span class="py-1 px-1 outline-none block h-full w-full">
+            {{pill.nature}}
+          </span>
+        </p>
+      </div>
+
+    </div>
+  </div>
+
 {% endblock content %}
