@@ -2,51 +2,68 @@
 {% load static %}
 
 {% block page_title %}
-    Home
+    Test
 {% endblock page_title %}
 
 {% block content %}
 
 <section class="text-gray-700 body-font">
-  <div class="w-full bg-gray-500 bg-cover" style="
-    background-blend-mode: multiply;
-    background-position: center center;
-    background-image: url('https://images.unsplash.com/photo-1551127017-4c6752f4a022?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');
-  ">
-    <div class=" p-10  py-20  flex  flex-col  flex-wrap  justify-center  content-center">
-      <div class=" m-0  p-0  text-3xl  text-white  antialiased  text-center">Take a picture of the pill.</div>
-      <div class=" m-0  p-0  text-xl  text-white  antialiased  text-center">여긴 뭘 적을까</div>
-
-      <form class="relative mt-3 flex flex-col items-center justify-center space-y-3" method="POST" enctype="multipart/form-data" action="{% url 'pills:camera' %}">
-        {% csrf_token %}
-        <div id="showVideo" class="duration-300 transform scale-100 hover:scale-105 p-2 w-72 md:w-84 bg-indigo-500 rounded-lg text-white text-center">
-          <i class="fa fa-camera"></i> Camera
+    <div class=" w-full  flex  flex-row  flex-wrap  bg-gray-600  p-10  py-20  justify-center" style="background-repeat: no-repeat; background-size: cover; background-blend-mode: multiply;background-position: center center;background-image: url('https://images.unsplash.com/photo-1551127017-4c6752f4a022?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');">
+        <div class=" w-full  text-center">
+            <div class=" text-3xl  text-center text-white  antialiased">Get Updates</div>
+            <div class="text-xl   text-center  text-white antialiased">Find out about events and other news</div>
         </div>
-
-        <div class="relative duration-300 rounded-lg w-72 h-72 md:w-84 md:h-84 flex justify-center items-center">
-          <div class="absolute w-full h-full bg-black rounded-lg opacity-75 z-0"></div>
-          <video id="video" class="w-full h-full z-10" autoplay muted playsinline></video>
-        </div>
-        <canvas id="canvas" class="hidden"></canvas>
-        <input type="hidden" id="image" name="image" />
-        
-        {% comment %} style="visibility:hidden" {% endcomment %}
-        <button id="submit-btn" class="duration-100 text-center border-2 border-gray-300 bg-white rounded-full h-12 w-12 flex justify-center items-center transform scale-100 hover:scale-110 shadow-lg hover:shadow-xl focus:outline-none">
-          <div class="h-10 w-10 border-2 border-gray-400 rounded-full flex justify-center">
-          </div>
+        <button id="showVideo" class="mt-5 text-white px-6 py-2 bg-indigo-400  rounded-lg text-center hover:bg-indigo-300" type="submit">
+            <i class="fa fa-camera mr-2"></i>Camera
         </button>
-      </form>
-
     </div>
-  </div>
 </section>
 
-<!--image preview-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="{% static "js/preview.js" %}"></script>
-<!--image preview-->
-<!--image cam-->
-<script src="{% static "js/cam.js" %}"></script>
-<!--image cam-->
+<!--Modal-->
+  <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+    <div class="modal-overlay absolute w-full h-full bg-black opacity-75"></div>
+    
+    <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+      
+      <div class="modal-close absolute top-0 right-0 cursor-pointer hidden md:flex flex-col items-center mt-6 mr-4 text-white text-sm z-50">
+        <i class="fa fa-times transform scale-125"></i>
+        <span class="text-sm">(Esc)</span>
+      </div>
+
+      <!-- Add margin if you want to see some of the overlay behind the modal-->
+      <div class="modal-content py-4 text-left px-6">
+        <!--Title-->
+        <div class="flex justify-between items-center pb-1 md:pb-3">
+            <p class="text-2xl font-bold">
+                <i class="fa fa-camera mr-2"></i>Camera
+            </p>
+            <div class="modal-close cursor-pointer z-50">
+                <i class="fa fa-times"></i>
+            </div>
+        </div>
+
+        <!--Body-->
+        <form method="POST" enctype="multipart/form-data" action="{% url 'pills:camera' %}">
+            {% csrf_token %}
+            <video id="video" class="rounded-lg" autoplay muted playsinline></video>
+            <canvas id="canvas" class="hidden"></canvas>
+            <input type="hidden" id="image" name="image"></input>
+
+            <!--Footer-->
+            <div class="flex justify-center pt-3 pb-0 md:pt-6 md:pb-3">
+                <button id="submit-btn" class="duration-100 text-center border-2 bg-white rounded-full h-12 w-12 flex justify-center items-center transform scale-100 hover:scale-110 shadow-lg hover:shadow-xl focus:outline-none">
+                    <div class=" w-10 h-10 border-2 border-gray-600 bg-white rounded-full flex items-center justify-center">
+                        <i class="fa fa-camera text-gray-700"></i>
+                    </div>
+                </button>
+            </div>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+
+<script src="{% static "js/modal.js" %}"></script>
+<!--Modal-->
 
 {% endblock content %}
