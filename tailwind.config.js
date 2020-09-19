@@ -3,6 +3,7 @@ module.exports = {
   theme: {
     extend: {
       width: {
+        '70': '20rem',
         '72': '18rem',
         '84': '21rem',
         '96': '24rem',

@@ -19,8 +19,20 @@ document.onkeydown = function(evt) {
   }
 };
     
-    
-function toggleModal () {
+function toggleModal (stream_a) {
+  const video = document.querySelector('#video');
+  const stream = video.srcObject;
+  if(stream){
+    const tracks = stream.getTracks();
+    tracks.forEach(function(track) {
+      track.stop();
+    });
+    video.srcObject = null;
+  } else{
+    const video = document.querySelector('#video');
+    video.srcObject = stream_a;
+  }
+  
   const body = document.querySelector('body')
   const modal = document.querySelector('.modal')
   modal.classList.toggle('opacity-0')
@@ -36,9 +48,7 @@ async function init(e) {
             facingMode: 'environment',
         },
     });
-    const video = document.querySelector('#video');
-    video.srcObject = stream;
-    toggleModal()
+    toggleModal(stream)
   } catch (e) {
     alert("카메라를 찾을 수 없습니다.");
   }
