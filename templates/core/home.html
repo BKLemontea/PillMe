@@ -1,12 +1,30 @@
 {% extends 'base.html' %}
 
 {% block page_title %}
-    Test
+    Home
 {% endblock page_title %}
 
 {% block content %}
 
+<section class="text-gray-700 body-font">
+    <div class=" w-full  flex  flex-row  flex-wrap rounded-b-lg shadow-lg bg-gray-600  p-10  py-20  justify-center" style="background-repeat: no-repeat; background-size: cover; background-blend-mode: multiply;background-position: center center;background-image: url('https://images.unsplash.com/photo-1551127017-4c6752f4a022?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');">
+        <div class=" w-full  text-center">
+            <div class=" text-3xl  text-center text-white  antialiased">Get Updates</div>
+            <div class="text-xl   text-center  text-white antialiased">Find out about events and other news</div>
+        </div>
+        <div class="mt-5 flex space-x-2">
+            <div id="showVideo" class="duration-300 cursor-pointer transform scale-100 hover:scale-105 text-white px-6 py-2 bg-indigo-500  rounded-lg text-center hover:bg-indigo-700">
+                <i class="fa fa-camera mr-2"></i>Camera
+            </div>
+            <div id="showSearch" class="duration-300 cursor-pointer transform scale-100 hover:scale-105 text-white px-6 py-2 bg-gray-800  rounded-lg text-center hover:bg-gray-700">
+                <i class="fa fa-search mr-2"></i>Search
+            </div>
+        </div>
+    </div>
+</section>
+
 {% include "mixins/core/camera.html" %}
+{% include "mixins/core/search.html" %}
 {% include "mixins/core/about.html" %}
 {% include "mixins/core/project.html" %}
 

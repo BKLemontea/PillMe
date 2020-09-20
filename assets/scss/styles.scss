@@ -47,9 +47,9 @@
   .modal {
     transition: opacity 0.25s ease;
   }
-  body.modal-active {
-    overflow-x: hidden;
-    overflow-y: visible !important;
+
+  .modal-search {
+    transition: opacity 0.25s ease;
   }
 
 @tailwind utilities;

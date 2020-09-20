@@ -1,19 +1,5 @@
 {% load static %}
-
-<section class="text-gray-700 body-font">
-    <div class=" w-full  flex  flex-row  flex-wrap  bg-gray-600  p-10  py-20  justify-center" style="background-repeat: no-repeat; background-size: cover; background-blend-mode: multiply;background-position: center center;background-image: url('https://images.unsplash.com/photo-1551127017-4c6752f4a022?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');">
-        <div class=" w-full  text-center">
-            <div class=" text-3xl  text-center text-white  antialiased">Get Updates</div>
-            <div class="text-xl   text-center  text-white antialiased">Find out about events and other news</div>
-        </div>
-        <div id="showVideo" class="duration-300 cursor-pointer mt-5 transform scale-100 hover:scale-105 text-white px-6 py-2 bg-indigo-500  rounded-lg text-center hover:bg-indigo-700" type="submit">
-            <i class="fa fa-camera mr-2"></i>Camera
-        </div>
-    </div>
-</section>
-
-<!--Modal-->
-  <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+<div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
     <div class="modal-overlay absolute w-full h-full bg-black opacity-75"></div>
     
     <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
@@ -36,8 +22,7 @@
         </div>
 
         <!--Body-->
-        <form method="POST" enctype="multipart/form-data" action="{% url 'pills:camera' %}">
-            {% csrf_token %}
+        <form method="POST" enctype="multipart/form-data" action="{% url 'pills:camera' %}">{% csrf_token %}
             <video id="video" class="rounded-lg" autoplay muted playsinline></video>
             <canvas id="canvas" class="hidden"></canvas>
             <input type="hidden" id="image" name="image"></input>
@@ -57,4 +42,3 @@
   </div>
 
 <script src="{% static "js/modal.js" %}"></script>
-<!--Modal-->

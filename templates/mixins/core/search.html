@@ -1,0 +1,106 @@
+{% load static %}
+<div class="modal-search opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
+    <div class="modal-search-overlay absolute w-full h-full bg-black opacity-75"></div>
+    
+    <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+      
+      <div class="modal-close absolute top-0 right-0 cursor-pointer hidden md:flex flex-col items-center mt-6 mr-4 text-white text-sm z-50">
+        <i class="fa fa-times transform scale-125"></i>
+        <span class="text-sm">(Esc)</span>
+      </div>
+
+      <!-- Add margin if you want to see some of the overlay behind the modal-->
+      <div class="modal-content py-4 text-left px-6">
+        <!--Title-->
+        <div class="flex justify-between items-center pb-1 md:pb-3">
+            <p class="text-2xl font-bold">
+                <i class="fa fa-search mr-2"></i>Search
+            </p>
+            <div class="modal-search-close cursor-pointer z-50">
+                <i class="fa fa-times"></i>
+            </div>
+        </div>
+
+        <form method="GET" enctype="multipart/form-data" action="{% url 'pills:search' %}">
+          <!--Body-->
+          <div class="border border-gray-400 rounded p-1 my-4">
+            <div class="-mt-3 absolute tracking-wider px-1 uppercase text-xs">
+              <p>
+                <label class="bg-white text-gray-600 px-1 font-bold rounded-full">제품명</label>
+              </p>
+            </div>
+            <p>
+              <input id="name" name="name" type="text" class="py-1 px-1 text-sm outline-none block h-8 w-full rounded-sm duration-200 hover:bg-gray-200" />
+            </p>
+          </div>
+
+          <div class="flex items-center justify-between">
+                <span class="border-b border-red-300 w-2/5"></span>
+                <span class="text-xs text-center text-red-400 uppercase pointer-events-none">or</span>
+                <span class="border-b border-red-300 w-2/5"></span>
+            </div>
+
+          <div class="border border-gray-400 rounded p-1 my-4">
+            <div class="-mt-3 absolute tracking-wider px-1 uppercase text-xs">
+              <label class="bg-white text-gray-600 px-1 font-bold rounded-full">문자</label>
+            </div>
+            <input id="mark" name="mark" type="text" class="py-1 px-1 text-sm outline-none block h-8 w-full rounded-sm duration-200 hover:bg-gray-200" />
+          </div>
+
+          <div class="border border-gray-400 rounded p-1 my-4">
+            <div class="-mt-3 absolute tracking-wider px-1 uppercase text-xs">
+              <label class="bg-white text-gray-600 px-1 font-bold rounded-full">모양</label>
+            </div>
+            <select id="shape" name="shape" class="py-1 px-1 text-sm outline-none block h-8 w-full rounded-sm duration-200 hover:bg-gray-200">
+              <option value="">선택안함</option>
+                <option value="원형">원형</option>
+                <option value="타원형">타원형</option>
+                <option value="장방형">장방형</option>
+                <option value="반원형">반원형</option>
+                <option value="삼각형">삼각형</option>
+                <option value="사각형">사각형</option>
+                <option value="마름모형">마름모형</option>
+                <option value="오각형">오각형</option>
+                <option value="육각형">육각형</option>
+                <option value="팔각형">팔각형</option>
+                <option value="기타">기타</option>
+            </select>
+          </div>
+
+          <div class="border border-gray-400 rounded p-1 my-4">
+            <div class="-mt-3 absolute tracking-wider px-1 uppercase text-xs">
+              <label class="bg-white text-gray-600 px-1 font-bold rounded-full">색상</label>
+            </div>
+            <select id="color" name="color" class="py-1 px-1 text-sm outline-none block h-8 w-full rounded-sm duration-200 hover:bg-gray-200">
+              <option value="">선택안함</option>
+                <option value="빨강">빨강</option>
+                <option value="주황">주황</option>
+                <option value="노랑">노랑</option>
+                <option value="연두">연두</option>
+                <option value="초록">초록</option>
+                <option value="청록">청록</option>
+                <option value="파랑">파랑</option>
+                <option value="남색">남색</option>
+                <option value="보라">보라</option>
+                <option value="자주">자주</option>
+                <option value="분홍">분홍</option>
+                <option value="갈색">갈색</option>
+                <option value="검정">검정</option>
+                <option value="회색">회색</option>
+                <option value="하양">하양</option>
+                <option value="투명">투명</option>
+            </select>
+          </div>
+
+          <!--Footer-->
+          <div class="flex justify-end pt-2">
+            <div id="submit" class="duration-300 px-4 bg-transparent cursor-pointer p-3 rounded-lg text-indigo-500 hover:bg-gray-200 hover:text-indigo-400 mr-2">Submit</div>
+            <div class="modal-search-close duration-300 cursor-pointer px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Close</div>
+            <button id="btn" class="hidden"></button>
+          </div>
+        </form>
+        
+      </div>
+    </div>
+  </div>
+<script src="{% static "js/search.js" %}"></script>
