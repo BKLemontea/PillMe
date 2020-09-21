@@ -45,12 +45,12 @@ def search(request):
         model = model.filter(Q(mark_front__icontains=mark) | Q( mark_back__icontains=mark))
             
     if shape:
-        model = model.filter(shape__icontains=shape)
+        model = model.filter(shape=shape)
             
     if color:
         model = model.filter(Q(color_front__icontains=color) | Q( color_back__icontains=color))
         
-    paginator = Paginator(model, 5)
+    paginator = Paginator(model, 6)
     page = request.GET.get('page')
     
     try:
@@ -99,9 +99,14 @@ def search(request):
         has_first = True
     if not int(paginator.num_pages) in page_range:
         has_last = True
-    
-    print("데이터 타입 :", type(result), result)
+        
+    if page is None:
+        number = 1
+    else:
+        number = int(page)
+        
     context = {
+        'number':number,
         'has_first':has_first,
         'has_last':has_last,
         "result":result,

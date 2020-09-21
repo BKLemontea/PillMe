@@ -237,5 +237,6 @@ dmypy.json
 node_modules/
 jspm_packages/
 
-# Data
+# Etc
 static/data/*
+cert/*

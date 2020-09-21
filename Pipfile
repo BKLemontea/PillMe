@@ -9,6 +9,7 @@ verify_ssl = true
 django = "==2.2.5"
 pillow = "*"
 psycopg2 = "*"
+django-sslserver = "*"
 
 [requires]
 python_version = "3.7"
