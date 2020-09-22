@@ -4,6 +4,37 @@ import csv
 import os
 from urllib.request import urlretrieve
 
+def remove(name):
+    name = list(name)
+
+    cnt = 0
+    flag = False
+    while True:
+        if name[cnt] == '(' or name[cnt] == '<':
+            flag = True
+            del name[cnt]
+            cnt -= 1
+        elif name[cnt] == ')' or name[cnt] == '>':
+            flag = False
+            del name[cnt]
+            cnt -= 1
+        elif flag:
+                del name[cnt]
+                cnt -= 1
+        cnt += 1
+        
+        if cnt >= len(name):
+            name = ''.join(name)
+            break
+
+    return name
+
+def remove_mark(mark):
+    mark = mark.replace("분할선", "")
+    if mark == '':
+        mark = '-'
+    return mark
+
 class Command(BaseCommand):
     
     help = "Importing csv file"
@@ -28,16 +59,21 @@ class Command(BaseCommand):
         for i in range(1, number+1):
             print(i, "회 Importing...")
             d = data[i].split(",")
+            
+            name = remove(d[1])
+            mark_front = remove_mark(d[6])
+            mark_back = remove_mark(d[7])
+            
             try:
                 pill = models.Pill.objects.get(serial_number=d[0])
-                pill.name = d[1]
+                pill.name = name
                 pill.serial_number = d[0]
                 pill.company_name = d[3]
                 pill.company_serial_number = d[2]
                 pill.sortation = d[19]
                 pill.nature = d[4]
-                pill.mark_front = d[6]
-                pill.mark_back = d[7]
+                pill.mark_front = mark_front
+                pill.mark_back = mark_back
                 pill.shape = d[8]
                 pill.color_front = d[9]
                 pill.color_back = d[10]
@@ -45,30 +81,30 @@ class Command(BaseCommand):
                 pill.line_back = d[12]
             except models.Pill.DoesNotExist:
                 pill = models.Pill.objects.create(
-                    name = d[1],
+                    name = name,
                     serial_number = d[0],
                     company_name = d[3],
                     company_serial_number = d[2],
                     sortation = d[19],
                     nature = d[4],
-                    mark_front = d[6],
-                    mark_back = d[7],
+                    mark_front = mark_front,
+                    mark_back = mark_back,
                     shape = d[8],
                     color_front = d[9],
                     color_back = d[10],
                     line_front = d[11],
                     line_back = d[12],
                 )
-            filename = str(pill.pk) + ".jpg"
-            urlretrieve(d[5], "./media/pill_photos/" + filename)
-            pill.image = "pill_photos/" + filename
+            
+            if d[5] != '-':
+                filename = str(pill.pk) + ".jpg"
+                urlretrieve(d[5], "./media/pill_photos/" + filename)
+                pill.image = "pill_photos/" + filename
             
             if list(d[13])[0] != "-":
                 pill.major_axis = d[13]
-                
             if list(d[14])[0] != "-":
                 pill.minor_axis = d[14]
-                
             if list(d[15])[0] != "-":
                 pill.thickness = d[15]
             
@@ -79,5 +115,6 @@ class Command(BaseCommand):
                 date = date[:10]
                 pill.date = ''.join(date)
             pill.save()
+            print(i, "회 종료")
             
         self.stdout.write(self.style.SUCCESS("Complete"))

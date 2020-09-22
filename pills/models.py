@@ -8,10 +8,10 @@ class Pill(models.Model):
     company_name = models.CharField(max_length=100, blank=True, null=True)
     company_serial_number = models.IntegerField(blank=True, null=True)
     sortation = models.CharField(max_length=50, blank=True, null=True)
-    nature = models.CharField(max_length=100, blank=True, null=True)
+    nature = models.CharField(max_length=1024, blank=True, null=True)
     
-    mark_front = models.CharField(max_length=10, blank=True, null=True)
-    mark_back = models.CharField(max_length=10, blank=True, null=True)
+    mark_front = models.CharField(max_length=50, blank=True, null=True)
+    mark_back = models.CharField(max_length=50, blank=True, null=True)
     shape = models.CharField(max_length=10, blank=True, null=True)
     color_front = models.CharField(max_length=10, blank=True, null=True)
     color_back = models.CharField(max_length=10, blank=True, null=True)

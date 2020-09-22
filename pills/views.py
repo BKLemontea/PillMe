@@ -19,7 +19,7 @@ class PillDetailView(DetailView):
 def camera(request):
     img = request.POST.get("image")
     img = Image.open(urlopen(img))
-    img.save("test.png")
+    # img.save("test.png")
     
     name = "징카민정40mg"
     

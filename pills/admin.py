@@ -70,5 +70,7 @@ class PillAdmin(admin.ModelAdmin):
     )
     
     def get_image(self, obj):
-        return mark_safe(f'<img width="100px" src="{obj.image.url}"/>')
+        if obj.image:
+            return mark_safe(f'<img width="100px" src="{obj.image.url}"/>')
+        return "empty"
     get_image.short_description = "Image"
