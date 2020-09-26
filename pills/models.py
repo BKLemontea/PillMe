@@ -24,5 +24,11 @@ class Pill(models.Model):
     
     date = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
     
+    material = models.TextField(null=True, blank=True)
+    efficacy = models.TextField(null=True, blank=True)
+    voulme = models.TextField(null=True, blank=True)
+    caution = models.TextField(null=True, blank=True)
+    etc = models.TextField(null=True, blank=True)
+    
     def __str__(self):
         return self.name

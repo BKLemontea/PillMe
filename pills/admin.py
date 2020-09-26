@@ -45,6 +45,18 @@ class PillAdmin(admin.ModelAdmin):
                 )
             },
         ),
+        (
+            "Detail Info",
+            {
+                "fields" : (
+                    "material",
+                    "efficacy",
+                    "voulme",
+                    "caution",
+                    "etc",
+                )
+            },
+        ),
     )
     
     list_display = (
@@ -61,8 +73,6 @@ class PillAdmin(admin.ModelAdmin):
     
     list_filter = (
         "sortation",
-        "mark_front",
-        "mark_back",
         "shape",
         "color_front",
         "color_back",
