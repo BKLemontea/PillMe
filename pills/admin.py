@@ -18,6 +18,9 @@ class PillAdmin(admin.ModelAdmin):
                     "company_serial_number",
                     "sortation",
                     "nature",
+                    "permission_date",
+                    "cancel",
+                    "cancel_date",
                 )
             },
         ),
@@ -53,7 +56,11 @@ class PillAdmin(admin.ModelAdmin):
                     "efficacy",
                     "voulme",
                     "caution",
+                    "dur",
                     "etc",
+                    "unit",
+                    "production_performance",
+                    "history",
                 )
             },
         ),

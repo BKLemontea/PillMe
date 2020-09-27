@@ -50,11 +50,16 @@ class Command(BaseCommand):
                 pill.color_back = d[10]
                 pill.line_front = d[11]
                 pill.line_back = d[12]
-                pill.material = drug_info[0]
-                pill.efficacy = drug_info[1]
-                pill.voulme = drug_info[2]
-                pill.caution = drug_info[3]
-                pill.etc = drug_info[4]
+                pill.material = drug_info[1]
+                pill.efficacy = drug_info[2]
+                pill.voulme = drug_info[3]
+                pill.caution = drug_info[4]
+                pill.dur = drug_info[5]
+                pill.etc = drug_info[6]
+                pill.unit = drug_info[7][0]
+                pill.production_performance = drug_info[7][1]
+                pill.history = drug_info[8]
+
             except models.Pill.DoesNotExist:
                 pill = models.Pill.objects.create(
                     name = name,
@@ -70,12 +75,24 @@ class Command(BaseCommand):
                     color_back = d[10],
                     line_front = d[11],
                     line_back = d[12],
-                    material = drug_info[0],
-                    efficacy = drug_info[1],
-                    voulme = drug_info[2],
-                    caution = drug_info[3],
-                    etc = drug_info[4],
+                    material = drug_info[1],
+                    efficacy = drug_info[2],
+                    voulme = drug_info[3],
+                    caution = drug_info[4],
+                    dur = drug_info[5],
+                    etc = drug_info[6],
+                    unit = drug_info[7][0],
+                    production_performance = drug_info[7][1],
+                    history = drug_info[8],
                 )
+            
+            for base_info in drug_info[0]:
+                if base_info[0] == "허가일":
+                    pill.permission_date = base_info[1]
+                elif base_info[0] == "취소/취하구분":
+                    pill.cancel = base_info[1]
+                elif base_info[0] == "취소/취하일자":
+                    pill.cancel_date = base_info[1]
             
             if d[5] != '-':
                 filename = str(pill.pk) + ".jpg"
@@ -131,42 +148,84 @@ def remove_mark(mark):
     return mark
 
 def parshing(ItemNumber):
-    URL = make_url(ItemNumber)  
+    URL = f"https://nedrug.mfds.go.kr/pbp/CCBBB01/getItemDetail?itemSeq={ItemNumber}" 
     result = requests.get(URL)
     soup = BeautifulSoup(result.text, "html.parser") 
     
     drug_html_class = soup.find("div", {"class": "drug_container"})  # 약 정보
     
     drug_info = []
+    drug_info.append(get_drug_base_info(drug_html_class.find("div", {"class": "r_sec"}))) # 기본정보
     drug_info.append(get_drug_material(drug_html_class.find("div", {"id": "scroll_02"}))) # 원료
     drug_info.append(get_drug_info(drug_html_class.find("div", {"id": "scroll_03"}))) # 효능
     drug_info.append(get_drug_info(drug_html_class.find("div", {"id": "scroll_04"}))) # 사용량,용법
     drug_info.append(get_drug_info(drug_html_class.find("div", {"id": "scroll_05"}))) # 주의사항
+    drug_info.append(get_drug_etc(drug_html_class.find("div", {"id": "scroll_06"}))) # DUR
     drug_info.append(get_drug_etc(drug_html_class.find("div", {"id": "scroll_07"}))) # 기타정보
-    
+    drug_info.append(get_drug_pp(drug_html_class.find("div", {"id": "scroll_08"}))) # 생산실적
+    drug_info.append(get_drug_etc(drug_html_class.find("div", {"id": "scroll_10"}))) # 변경이력
+
     return drug_info
 
+def get_drug_base_info(html):
+    try:
+        temp = []
+        tr_list = html.find_all("tr")
 
-def make_url(ItemNumber):
-    return f"https://nedrug.mfds.go.kr/pbp/CCBBB01/getItemDetail?itemSeq={ItemNumber}"
-
+        for tr in tr_list:
+            th = re.sub('<.+?>', '', str(tr.find("th")), 0).strip()
+            td = re.sub('<.+?>', '', str(tr.find("td")), 0).strip()
+            temp.append([th, td])
+        return temp
+    except:
+        pass
 
 def get_drug_material(html):
-    temp = str(html.find("div", {"class": "info_box"}))
-    title_list = html.find_all("h3")
-    for title in title_list[1:]:
-        temp += str(title)
-    temp = re.sub('<!--.+?-->', '', temp, 0).strip()
-    return temp
+    try:
+        temp = ''
+        info_box_list = html.find_all("div", {"class": "info_box"})
+        title4_list = html.find_all("h3", {"class": "cont_title4"})
+        title5_list = html.find_all("h3", {"class": "cont_title5"})
+        for cnt in range(len(info_box_list)):
+            temp += str(info_box_list[cnt])
+            try:
+                temp += str(title4_list[cnt])
+            except:
+                pass
+            try:
+                temp += str(title5_list[cnt])
+            except:
+                pass
+        temp = re.sub('<!--.+?-->', '', temp, 0).strip()
+        return temp
+    except:
+        pass
 
 
 def get_drug_info(html):
-    temp = str(html.find("div", {"class": "info_box"}))
-    temp = re.sub('<!--.+?-->', '', temp, 0).strip()
-    return temp
+    try:
+        temp = str(html.find("div", {"class": "info_box"}))
+        temp = re.sub('<caption>.+?</caption>', '', temp, 0)
+        temp = re.sub('<!--.+?-->', '', temp, 0).strip()
+        return temp
+    except:
+        pass
     
 def get_drug_etc(html):
-    temp = str(html.find("table", {"class": "s-dr_table"}))
-    temp = re.sub('<caption>.+?</caption>', '', temp, 0)
-    temp = re.sub('<!--.+?-->', '', temp, 0).strip()
-    return temp
+    try:
+        temp = str(html.find("table", {"class": "s-dr_table"}))
+        temp = re.sub('<a.+?>', '', temp, 0)
+        temp = re.sub('</a>', '', temp, 0)
+        temp = re.sub('<caption>.+?</caption>', '', temp, 0)
+        temp = re.sub('<!--.+?-->', '', temp, 0).strip()
+        return temp
+    except:
+        pass
+    
+def get_drug_pp(html):
+    try:
+        unit = re.sub('<.+?>', '', str(html.find("span", {"class": "stt"})), 0).strip()
+        pp = get_drug_etc(html)
+        return [unit, pp]
+    except:
+        return [None, None]

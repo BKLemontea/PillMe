@@ -5,6 +5,11 @@
             <article class="overflow-hidden rounded-lg shadow-lg border-b-2 border-indigo-400">
                 
                 <a href="{{pill.image.url}}" target="_blank">
+                    {% if pill.cancel %}
+                    <div class="absolute bg-red-500 text-white text-xs font-semibold rounded-r-full py-1 pl-2 pr-4 mt-6 shadow-md">
+                        {{pill.cancel}}
+                    </div>
+                    {% endif %}
                     <img class="h-auto w-full" src="{{pill.image.url}}">
                 </a>
 
@@ -13,9 +18,9 @@
                         <div class="w-full flex justify-between mb-2">
                             <p class="uppercase tracking-wide text-sm font-bold text-gray-700">제품명</p>
                             {% if pill.sortation == "일반의약품" %}
-                            <span class="rounded-full text-white bg-green-400 py-1 px-3 text-xs font-bold shadow-md">일반</span>
+                            <span class="rounded-full text-white bg-green-500 py-1 px-3 text-xs font-bold shadow-md">일반</span>
                             {% else %}
-                            <span class="rounded-full text-white bg-red-400 py-1 px-3 text-xs font-bold shadow-md flex items-center">전문</span>
+                            <span class="rounded-full text-white bg-red-500 py-1 px-3 text-xs font-bold shadow-md">전문</span>
                             {% endif %}
                         </div>
                         <p class="text-lg font-bold text-gray-800 mb-1 truncate">{{pill.name}}</p>
