@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.views.generic import ListView, FormView
+from django.views.generic import ListView, FormView, TemplateView
 from django.contrib import messages
 from pills import models as pill_models
 from . import models, forms
@@ -55,3 +55,6 @@ def delete_inventory(request, pk):
     except models.Inventory.DoesNotExist:
         messages.success(request, "인벤토리에서 해당 알약을 찾지 못했습니다.")
         return redirect(reverse("core:home"))
+    
+class InventoryView(TemplateView):
+    template_name = "users/Inventory.html"

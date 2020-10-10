@@ -26,6 +26,10 @@
         {% block content %}
         {% endblock content %}
         {% include "partials/footer.html" %}
+        {% include "partials/mobile.html" %}
+
+        {% include "mixins/core/camera.html" %}
+        {% include "mixins/core/search.html" %}
     </body>
 
 </html>

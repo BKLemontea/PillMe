@@ -5,12 +5,12 @@
 {% endblock page_title %}
 
 {% block content %}
-    <section class="text-gray-700 body-font pb-16 pt-2 lg:px-0">
+    <section class="text-gray-700 body-font pb-16 pt-2">
         <div class="bg-cover bg-center mb-16 py-10 rounded-b-md shadow-sm tracking-widest" 
             style="background-image: url(https://images.unsplash.com/photo-1584362917165-526a968579e8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1082&q=80)">
             <p class="w-full text-center text-4xl">{{pill.name}}</p>    
         </div>
-        <div class="container mx-auto flex-col items-center">
+        <div class="container mx-auto flex-col items-center px-6 lg:px-0">
 
             <div class="flex flex-col lg:flex-row-reverse md:items-start">
                 <div class="w-full lg:w-1/3 md:max-h-full lg:mt-12 mt-0 lg:mb-0 mb-16">
@@ -40,7 +40,7 @@
                         <tbody>
                             <tr>
                                 <th class="text-gray-800">품명</th>
-                                <td class="w-3/4 lg:w-4/5 pl-5">
+                                <td class="w-2/3 lg:w-4/5 pl-5">
                                     {{pill.name}}
                                 </td>
                             </tr>
@@ -123,7 +123,7 @@
         </div>
 
         {% if pill.material %}
-        <div class="mt-10 border-t border-gray-300 w-full">
+        <div class="mt-10 border-t border-gray-300 w-full px-6 lg:px-0">
           <div class="container mx-auto items-center">
             <p class="text-2xl font-bold text-black my-6">원료약품 및 분량</p>
             {{pill.material|safe}}
@@ -132,7 +132,7 @@
         {% endif %}
 
         {% if pill.efficacy %}
-        <div class="mt-10 border-t border-gray-300 w-full">
+        <div class="mt-10 border-t border-gray-300 w-full px-6 lg:px-0">
           <div class="container mx-auto items-center">
             <p class="text-2xl font-bold text-black my-6">효능효과</p>
             {{pill.efficacy|safe}}
@@ -141,7 +141,7 @@
         {% endif %}
 
         {% if pill.voulme %}
-        <div class="mt-10 border-t border-gray-300 w-full">
+        <div class="mt-10 border-t border-gray-300 w-full px-6 lg:px-0">
           <div class="container mx-auto items-center">
             <p class="text-2xl font-bold text-black my-6">용법용량</p>
             {{pill.voulme|safe}}
@@ -150,7 +150,7 @@
         {% endif %}
 
         {% if pill.caution %}
-        <div class="mt-10 border-t border-gray-300 w-full">
+        <div class="mt-10 border-t border-gray-300 w-full px-6 lg:px-0">
           <div class="container mx-auto items-center">
             <p class="text-2xl font-bold text-black my-6">사용상의주의사항</p>
             {{pill.caution|safe}}
@@ -159,7 +159,7 @@
         {% endif %}
 
         {% if pill.dur %}
-        <div class="mt-10 border-t border-gray-300 w-full">
+        <div class="mt-10 border-t border-gray-300 w-full px-6 lg:px-0">
           <div class="container mx-auto items-center">
             <p class="text-2xl font-bold text-black my-6">의약품 적정 사용 정보 (DUR)</p>
             {{pill.dur|safe}}
@@ -168,7 +168,7 @@
         {% endif %}
 
         {% if pill.etc %}
-        <div class="mt-10 border-t border-gray-300 w-full">
+        <div class="mt-10 border-t border-gray-300 w-full px-6 lg:px-0">
             <div class="container mx-auto items-center">
                 <p class="text-2xl font-bold text-black my-6">재심사, RMP, 보험, 기타정보</p>
                 {{pill.etc|safe}}
@@ -177,7 +177,7 @@
         {% endif %}
 
         {% if pill.production_performance %}
-        <div class="mt-10 border-t border-gray-300 w-full">
+        <div class="mt-10 border-t border-gray-300 w-full px-6 lg:px-0">
           <div class="container mx-auto items-center">
             <p class="text-2xl font-bold text-black my-6">
                 생산실적
@@ -191,7 +191,7 @@
         {% endif %}
 
         {% if pill.history %}
-        <div class="mt-10 border-t border-gray-300 w-full">
+        <div class="mt-10 border-t border-gray-300 w-full px-6 lg:px-0">
           <div class="container mx-auto items-center">
             <p class="text-2xl font-bold text-black my-6">변경이력</p>
             {{pill.history|safe}}

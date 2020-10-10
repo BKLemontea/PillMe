@@ -31,3 +31,9 @@ class User(AbstractUser):
     
     def __str__(self):
         return self.name
+    
+    def getNormal(self):
+        return self.inventory.filter(sortation="일반의약품").count()
+    
+    def getPro(self):
+        return self.inventory.filter(sortation="전문의약품").count()

@@ -21,6 +21,8 @@ def camera(request):
     img = Image.open(urlopen(img))
     # img.save("test.png")
     
+    # 여기서 사진 식별
+    
     name = "징카민정40mg"
     
     try:
