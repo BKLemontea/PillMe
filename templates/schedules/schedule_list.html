@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block page_title %}
+    Search
+{% endblock page_title %}
+
+{% block content %}
+
+<section class="pt-6 px-6 mb-32">
+{% if schedules %}
+    <div class="flex flex-col text-center w-full mt-20 mb-10 md:mb-20">
+        <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">일정 리스트</h1>
+        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">- Schedule -</p>
+    </div>
+
+    <div class="container my-12 mx-auto px-4 md:px-12">
+        <div class="flex flex-wrap -mx-1 lg:-mx-4 justify-center">
+
+        <div class="space-y-2 md:space-y-5 w-full">
+        {% for schedule in schedules %}
+            <div class="bg-gray-300 rounded-lg p-3 md:p-5 flex flex-row">
+                <div class="w-24 md:w-32 lg:w-56 mr-4 md:mr-8">
+                    <a href="{% url 'pills:detail' pk=schedule.pill.pk %}">
+                        <img class="rounded-lg shadow-md" src="{{schedule.pill.image.url}}">
+                    </a>
+                </div>
+                <div class="w-full flex flex-col justify-between">
+                    <div class="flex justify-between">
+                        <span class="text-gray-800 font-semibold text-sm md:text-base lg:text-2xl">{{schedule.pill.name|truncatechars:11}}</span>
+                        <span class="text-red-500 font-semibold text-sm md:text-base lg:text-2xl">{{schedule.date}}</span>
+                    </div>
+                    <div class="flex flex-row space-x-1">
+                        {% for day in schedule.dow.all %}
+                        <div class="text-xs md:text-sm lg:text-base bg-gray-700 rounded-full px-1 md:px-2 md:py-1 lg:px-4 lg:py-2 font-semibold text-white"># {{day.first}}</div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+            <!--Pagination-->
+            {% if paginator.num_pages != 1%}
+            <div class="w-full mb-12 flex md:flex-row md:justify-between flex-col items-center md:items-start">
+                <div class="text-sm leading-5 text-blue-700 md:mb-0 mb-3 w-auto lg:ml-4 md:ml-2">
+                    Showing
+                    <span class="font-medium">{% if request.GET.page %}{{request.GET.page}}{% else %}1{% endif %}</span> Page
+                    of
+                    <span class="font-medium">{{paginator.num_pages}}</span> Pages
+                </div>
+
+                <div class="w-auto">
+                    <div class="inline-flex">
+                        {% if has_first %}
+                        
+                            <a href="?page=1"
+                                class="mr-1 duration-300 shadow-md inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:border-indigo-300 hover:text-indigo-500"
+                                aria-label="Previous"
+                                v-on:click.prevent="changePage(pagination.current_page - 1)">
+                                <svg class="h-5 w-5 -mr-4" viewBox="0 0 20 20" fill="currentColor">
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                        clip-rule="evenodd"/>
+                                </svg>
+                                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                        clip-rule="evenodd"/>
+                                </svg>
+                            </a>
+                        
+                        {% endif %}
+
+                        {% if has_previous %}
+                        
+                            <a href="?page={{previous_page_number}}"
+                                class="duration-300 shadow-md inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:border-indigo-300 hover:text-indigo-500"
+                                aria-label="Previous"
+                                v-on:click.prevent="changePage(pagination.current_page - 1)">
+                                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                                        clip-rule="evenodd"/>
+                                </svg>
+                            </a>
+                        
+                        {% endif %}
+
+                        {% for page in page_range %}
+                            <a 
+                            href="?page={{page}}"
+                            class="inline-flex duration-300 items-center shadow-md px-4 py-2 bg-white text-sm font-medium text-blue-700 hover:border-indigo-300 border {% if page == number %}font-extrabold border-indigo-300{% else %}border-gray-300{% endif %}">
+                                {{page}}
+                            </a>
+                        {% endfor %}
+
+                        {% if has_next  %}
+                        
+                            <a href="?page={{next_page_number}}"
+                                class="duration-300 shadow-md inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:border-indigo-300 hover:text-indigo-500"
+                                aria-label="Next">
+                                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                        clip-rule="evenodd"/>
+                                </svg>
+                            </a>
+                        
+                        {% endif %}
+
+                        {% if has_last  %}
+                        
+                            <a href="?page={{paginator.num_pages}}"
+                                class="ml-1 duration-300 shadow-md inline-flex items-center px-2 py-2 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:border-indigo-300 hover:text-indigo-500"
+                                aria-label="Next">
+                                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                        clip-rule="evenodd"/>
+                                </svg>
+                                <svg class="h-5 w-5 -ml-4" viewBox="0 0 20 20" fill="currentColor">
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                        clip-rule="evenodd"/>
+                                </svg>
+                            </a>
+                        
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <!--End Pagination-->
+
+        </div>
+    </div>
+
+{% else %}
+<div class="flex flex-col text-center w-full my-20">
+    <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">검색 결과가 없습니다.</h1>
+    <p class="lg:w-2/3 mx-auto leading-relaxed text-base">- Pill not Found -</p>
+</div>
+{% endif %}
+</section>
+
+{% endblock content %}

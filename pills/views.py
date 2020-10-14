@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib.auth.decorators import login_required
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView
 from django.contrib import messages
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -8,6 +8,7 @@ from . import models
 from urllib.request import urlretrieve, urlopen
 from PIL import Image
 import os
+from django.db.models import Q
 
 # Create your views here.
 class PillDetailView(DetailView):
@@ -121,3 +122,106 @@ def search(request):
         'pills': pills
     }
     return render(request, "pills/search.html", context)
+
+class RecommendView(TemplateView) :
+    template_name = 'pills/recommend.html'
+    
+def recommend_detail(request):
+    tag = request.GET.get("tag")
+        
+    model = models.Pill.objects.all().filter(
+        Q(sortation="일반의약품") &
+        ~Q(cancel="취하") &
+        ~Q(cancel="유효기간만료")
+        )
+    if tag == "감기":
+        temp = model.filter(efficacy__contains="감기")
+        model = temp
+    elif tag == "복통":
+        temp = model.filter(efficacy__contains="복통")
+        model = temp
+    elif tag == "두통":
+        temp = model.filter(efficacy__contains="두통")
+        model = temp
+    elif tag == "치통":
+        temp = model.filter(efficacy__contains="치통")
+        model = temp
+    elif tag == "염증":
+        temp = model.filter(efficacy__contains="염증")
+        model = temp
+    elif tag == "근육통":
+        temp = model.filter(efficacy__contains="근육통")
+        model = temp
+    elif tag == "관절통":
+        temp = model.filter(efficacy__contains="관절통")
+        model = temp
+        
+    paginator = Paginator(model, 6)
+    page = request.GET.get('page')
+    
+    try:
+        pills = paginator.page(page)
+    except PageNotAnInteger:
+        pills = paginator.page(1)
+    except EmptyPage:
+        pills = paginator.page(paginator.num_pages)
+    
+    result = model.count()
+    previous_page_number = 0
+    has_previous = False
+    next_page_number = 0
+    has_next = False
+    
+    if page is not None:
+        if page is not '1':
+            previous_page_number = int(page) - 1
+            has_previous = True
+
+    if paginator.num_pages > 1:
+        if page is None or int(page) < paginator.num_pages:
+            if page is None:
+                next_page_number = 2
+            else:
+                next_page_number = int(page) + 1
+            has_next = True
+            
+    page_range = paginator.page_range
+    if len(list(page_range)) > 5:
+        if page is None:
+            page_range = range(1, 6)
+        else:
+            if int(page) - 2 < 1:
+                page_range = range(1, 6)
+            else:
+                if int(page) + 2 > int(paginator.num_pages):
+                    page_range = range(int(paginator.num_pages) - 4, int(paginator.num_pages) + 1)
+                else:
+                    page_range = range(int(page) - 2, int(page) + 3)
+    
+    has_first = False
+    has_last = False
+    
+    if not 1 in page_range:
+        has_first = True
+    if not int(paginator.num_pages) in page_range:
+        has_last = True
+        
+    if page is None:
+        number = 1
+    else:
+        number = int(page)
+        
+    context = {
+        'number':number,
+        'has_first':has_first,
+        'has_last':has_last,
+        "result":result,
+        "page_range":page_range,
+        "has_previous":has_previous,
+        "previous_page_number":previous_page_number,
+        "has_next":has_next,
+        "next_page_number":next_page_number,
+        'paginator':paginator,
+        'pills': pills
+    }
+    return render(request, "pills/recommend_detail.html", context)

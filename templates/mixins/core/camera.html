@@ -2,7 +2,7 @@
 <div class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center z-50">
     <div class="modal-overlay absolute w-full h-full bg-black opacity-75"></div>
     
-    <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+    <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded-lg shadow-lg z-50 overflow-y-auto">
       
       <div class="modal-close absolute top-0 right-0 cursor-pointer hidden md:flex flex-col items-center mt-6 mr-4 text-white text-sm z-50">
         <i class="fa fa-times transform scale-125"></i>
@@ -28,12 +28,26 @@
             <input type="hidden" id="image" name="image"></input>
 
             <!--Footer-->
-            <div class="flex justify-center pt-3 pb-0 md:pt-6 md:pb-3">
-                <button id="submit-btn" class="duration-100 text-center border-2 bg-white rounded-full h-12 w-12 flex justify-center items-center transform scale-100 hover:scale-110 shadow-lg hover:shadow-xl focus:outline-none">
-                    <div class=" w-10 h-10 border-2 border-gray-600 bg-white rounded-full flex items-center justify-center">
+            <div class="flex justify-between items-center pt-3 pb-0 md:pt-6 md:pb-3">
+                <div class="invisible ml-4">
+                공백
+                </div>
+                <div onclick="play()"
+                      class="duration-300 text-center border-2 bg-white rounded-full h-12 w-12 flex justify-center items-center transform scale-100 hover:scale-110 shadow-lg hover:shadow-xl">
+                      <div class=" w-10 h-10 border-2 border-gray-600 bg-white rounded-full flex items-center justify-center">
                         <i class="fa fa-camera text-gray-700"></i>
-                    </div>
-                </button>
+                      </div>
+                </div>
+
+                <div id="reverse-btn"
+                      class="mr-4 duration-300 text-center bg-gray-900 rounded-full h-8 w-8 flex justify-center items-center transform scale-100 hover:scale-110 shadow-lg hover:shadow-xl">
+                      <i class="fa fa-refresh text-white"></i>
+                </div>
+            </div>
+
+            <div class="hidden">
+              <button id="submit-btn"></button>
+              <audio id="audio" src="{% static 'sound/camera.mp3' %}" onended="end()"></audio>
             </div>
         </form>
         

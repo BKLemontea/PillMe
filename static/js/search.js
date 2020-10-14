@@ -25,7 +25,10 @@ function toggleModal_search () {
   modal.classList.toggle('pointer-events-none');
 }
 
-document.querySelector('#showSearch').addEventListener('click', toggleModal_search);
+var openmodal = document.querySelectorAll('#showSearch');
+for (var i = 0; i < openmodal.length; i++) {
+  openmodal[i].addEventListener('click', toggleModal_search);
+}
 
 function check(){
   var name = document.getElementById("name");

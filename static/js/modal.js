@@ -52,6 +52,29 @@ async function init(e) {
   }
 }
 
+async function reverse(e) {
+  const video = document.querySelector('#video');
+  if(video.flag == null){
+    const stream = await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+            facingMode: 'user',
+        },
+    });
+    video.flag = true;
+    video.srcObject = stream;
+  }else{
+    const stream = await navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: {
+            facingMode: 'environment',
+        },
+    });
+    video.flag = null;
+    video.srcObject = stream;
+  }
+}
+
 function capture() {
     width = 350;
     height = 260;
@@ -67,5 +90,20 @@ function capture() {
     $('#image').val(canvas.toDataURL());
 }
 
-document.querySelector('#showVideo').addEventListener('click', e => init(e));
+function play() { 
+  var audio = document.getElementById('audio'); 
+  audio.play();
+}
+
+function end(){
+  var audio = document.getElementById('audio'); 
+  audio.pause();
+  document.getElementById('submit-btn').click();
+}
+
+var openmodal = document.querySelectorAll('#showVideo');
+for (var i = 0; i < openmodal.length; i++) {
+  openmodal[i].addEventListener('click', e => init(e));
+}
 document.querySelector('#submit-btn').addEventListener('click', capture);
+document.querySelector('#reverse-btn').addEventListener('click', e => reverse(e));

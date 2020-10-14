@@ -42,11 +42,11 @@
                 </div>
 
                 <div class="w-auto">
-                    <div class="inline-flex shadow-sm">
+                    <div class="inline-flex">
                         {% if has_first %}
-                        <div>
+                        
                             <a href="?page=1{% if request.GET.name %}&name={{request.GET.name}}{% endif %}{% if request.GET.mark %}&mark={{request.GET.mark}}{% endif %}{% if request.GET.shape %}&shape={{request.GET.shape}}{% endif %}{% if request.GET.color %}&color={{request.GET.color}}{% endif %}"
-                                class="mr-1 duration-300 inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:border-indigo-300 hover:text-indigo-500"
+                                class="mr-1 duration-300 shadow-md inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:border-indigo-300 hover:text-indigo-500"
                                 aria-label="Previous"
                                 v-on:click.prevent="changePage(pagination.current_page - 1)">
                                 <svg class="h-5 w-5 -mr-4" viewBox="0 0 20 20" fill="currentColor">
@@ -62,13 +62,13 @@
                                         clip-rule="evenodd"/>
                                 </svg>
                             </a>
-                        </div>
+                        
                         {% endif %}
 
                         {% if has_previous %}
-                        <div>
+                        
                             <a href="?page={{previous_page_number}}{% if request.GET.name %}&name={{request.GET.name}}{% endif %}{% if request.GET.mark %}&mark={{request.GET.mark}}{% endif %}{% if request.GET.shape %}&shape={{request.GET.shape}}{% endif %}{% if request.GET.color %}&color={{request.GET.color}}{% endif %}"
-                                class="duration-300 inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:border-indigo-300 hover:text-indigo-500"
+                                class="duration-300 shadow-md inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:border-indigo-300 hover:text-indigo-500"
                                 aria-label="Previous"
                                 v-on:click.prevent="changePage(pagination.current_page - 1)">
                                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -78,21 +78,21 @@
                                         clip-rule="evenodd"/>
                                 </svg>
                             </a>
-                        </div>
+                        
                         {% endif %}
 
                         {% for page in page_range %}
                             <a 
                             href="?page={{page}}{% if request.GET.name %}&name={{request.GET.name}}{% endif %}{% if request.GET.mark %}&mark={{request.GET.mark}}{% endif %}{% if request.GET.shape %}&shape={{request.GET.shape}}{% endif %}{% if request.GET.color %}&color={{request.GET.color}}{% endif %}"
-                            class="inline-flex duration-300 items-center px-4 py-2 bg-white text-sm font-medium text-blue-700 hover:border-indigo-300 border {% if page == number %}font-extrabold border-indigo-300{% else %}border-gray-300{% endif %}">
+                            class="inline-flex duration-300 items-center shadow-md px-4 py-2 bg-white text-sm font-medium text-blue-700 hover:border-indigo-300 border {% if page == number %}font-extrabold border-indigo-300{% else %}border-gray-300{% endif %}">
                                 {{page}}
                             </a>
                         {% endfor %}
 
                         {% if has_next  %}
-                        <div>
+                        
                             <a href="?page={{next_page_number}}{% if request.GET.name %}&name={{request.GET.name}}{% endif %}{% if request.GET.mark %}&mark={{request.GET.mark}}{% endif %}{% if request.GET.shape %}&shape={{request.GET.shape}}{% endif %}{% if request.GET.color %}&color={{request.GET.color}}{% endif %}"
-                                class="duration-300 inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:border-indigo-300 hover:text-indigo-500"
+                                class="duration-300 shadow-md inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:border-indigo-300 hover:text-indigo-500"
                                 aria-label="Next">
                                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path
@@ -101,13 +101,13 @@
                                         clip-rule="evenodd"/>
                                 </svg>
                             </a>
-                        </div>
+                        
                         {% endif %}
 
                         {% if has_last  %}
-                        <div>
+                        
                             <a href="?page={{paginator.num_pages}}{% if request.GET.name %}&name={{request.GET.name}}{% endif %}{% if request.GET.mark %}&mark={{request.GET.mark}}{% endif %}{% if request.GET.shape %}&shape={{request.GET.shape}}{% endif %}{% if request.GET.color %}&color={{request.GET.color}}{% endif %}"
-                                class="ml-1 duration-300 inline-flex items-center px-2 py-2 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:border-indigo-300 hover:text-indigo-500"
+                                class="ml-1 duration-300 shadow-md inline-flex items-center px-2 py-2 rounded-lg border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:border-indigo-300 hover:text-indigo-500"
                                 aria-label="Next">
                                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                     <path
@@ -122,7 +122,7 @@
                                         clip-rule="evenodd"/>
                                 </svg>
                             </a>
-                        </div>
+                        
                         {% endif %}
                     </div>
                 </div>
@@ -132,15 +132,13 @@
 
         </div>
     </div>
-</section>
 
 {% else %}
 <div class="flex flex-col text-center w-full my-20">
     <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">검색 결과가 없습니다.</h1>
-    <p class="lg:w-2/3 mx-auto leading-relaxed text-base">- File not Found -</p>
+    <p class="lg:w-2/3 mx-auto leading-relaxed text-base">- Pill not Found -</p>
 </div>
 {% endif %}
-
-{% include "mixins/core/search.html" %}
+</section>
 
 {% endblock content %}

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block page_title %}
+    일정 등록
+{% endblock page_title %}
+
+{% block content %}
+
+<section class="text-gray-700 body-font pb-16 pt-10 md:pt-20 mx-auto flex justify-center mb-12">
+    <div class="m-4 p-6 rounded-lg shadow-lg md:w-1/2 bg-white">
+
+        <div class="flex flex-col">
+            <div class="flex flex-col w-full">
+                <div class="flex flex-row items-center">
+                    <div class="w-1/2">
+                        <a href="{% url 'pills:detail' pk=pill.pk %}">
+                            <img class="rounded-lg shadow-md bg-cover" src="{{pill.image.url}}">
+                        </a>
+                    </div>
+                    <div class="w-1/2 px-4 py-1 flex flex-col justify-between">
+                        <p class="md:text-2xl font-semibold text-black pt-1">제품명</p>
+                        <p class="md:text-2xl text-gray-600 border-gray-400 border-b-2 pb-3">{{pill.name|truncatechars:17}}</p>
+                    </div>
+                </div>
+            <form method="POST" enctype="multipart/form-data" action="{% url 'schedules:add-f' pk=pill.pk %}"> {% csrf_token %}
+                <div class="mt-10">
+                    <p class="text-xl font-semibold text-black pt-1 mb-4">시간 설정</p>
+                    <input id="demo-mobile" class="hidden" name="date" value="오전 1 0" />
+                </div>
+                <div class="mt-10">
+                    <p class="text-xl font-semibold text-black pt-1">주기 설정</p>
+                    <div class="flex flex-col space-y-3 px-4 mt-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg text-black">월요일</span>
+                            <input class="w-6 h-6" type="checkbox" name="checkbox" value="월요일" />
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg text-black">화요일</span>
+                            <input class="w-6 h-6" type="checkbox" name="checkbox" value="화요일" />
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg text-black">수요일</span>
+                            <input class="w-6 h-6" type="checkbox" name="checkbox" value="수요일" />
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg text-black">목요일</span>
+                            <input class="w-6 h-6" type="checkbox" name="checkbox" value="목요일" />
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg text-black">금요일</span>
+                            <input class="w-6 h-6" type="checkbox" name="checkbox" value="금요일" />
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg text-black">토요일</span>
+                            <input class="w-6 h-6" type="checkbox" name="checkbox" value="토요일" />
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-lg text-black">일요일</span>
+                            <input class="w-6 h-6" type="checkbox" name="checkbox" value="일요일" />
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-10 flex flex-row justify-between items-center hidden">
+                    <p class="text-xl font-semibold text-black pt-1">알람 설정</p>
+
+                    <!-- Toggle Button -->
+                    <label for="toogleA" class="flex items-center cursor-pointer mr-4">
+                        <!-- toggle -->
+                        <div class="relative">
+                            <!-- input -->
+                            <input id="toogleA" type="checkbox" class="hidden" />
+                            <!-- line -->
+                            <div class="toggle__line w-10 h-4 bg-gray-400 rounded-full shadow-inner"></div>
+                            <!-- dot -->
+                            <div class="toggle__dot absolute w-6 h-6 bg-white rounded-full shadow-md inset-y-0 left-0 border -mt-1 -ml-1 border-gray-400"></div>
+                        </div>
+                    </label>
+
+                </div>
+
+                <button class="mt-12 w-full h-10 text-white font-semibold duration-300 bg-green-500 hover:bg-green-700 rounded-full focus:outline-none">일정 추가</button>
+            </form>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script src="{% static "js/mobiscroll.js" %}"></script>
+{% endblock content %}

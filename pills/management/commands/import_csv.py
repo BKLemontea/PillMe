@@ -25,7 +25,7 @@ class Command(BaseCommand):
         if not os.path.isdir(path):
             os.mkdir(path)
             
-        for i in range(1, number+1):
+        for i in range(1289, 1290):
             print(i, "회 Importing...")
             d = data[i].split(",")
             
@@ -88,11 +88,13 @@ class Command(BaseCommand):
             
             for base_info in drug_info[0]:
                 if base_info[0] == "허가일":
-                    pill.permission_date = base_info[1]
+                    if base_info[1] != '':
+                        pill.permission_date = base_info[1]
                 elif base_info[0] == "취소/취하구분":
                     pill.cancel = base_info[1]
                 elif base_info[0] == "취소/취하일자":
-                    pill.cancel_date = base_info[1]
+                    if base_info[1] != '':
+                        pill.cancel_date = base_info[1]
             
             if d[5] != '-':
                 filename = str(pill.pk) + ".jpg"

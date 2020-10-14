@@ -5,7 +5,7 @@
 {% endblock page_title %}
 
 {% block content %}
-
+<!--
 <section class="text-gray-700 body-font">
     <div class=" w-full  flex  flex-row  flex-wrap rounded-b-lg shadow-lg bg-gray-600  p-10  py-20  justify-center" style="background-repeat: no-repeat; background-size: cover; background-blend-mode: multiply;background-position: center center;background-image: url('https://images.unsplash.com/photo-1551127017-4c6752f4a022?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80');">
         <div class=" w-full  text-center">
@@ -22,8 +22,11 @@
         </div>
     </div>
 </section>
-
+-->
+{% include "mixins/core/function.html" %}
+<!--
 {% include "mixins/core/about.html" %}
-{% include "mixins/core/project.html" %}
+{% include "mixins/core/project.html" %} 
+-->
 
 {% endblock content %}

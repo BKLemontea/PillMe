@@ -28,11 +28,24 @@
                     </div>
                 </div>
 
-                <div class="px-4 py-4 bg-white border-t border-gray-300">
+                <div class="px-4 py-4 bg-white border-t border-gray-300 flex flex-row">
                     <a href="{% url 'pills:detail' pk=pill.pk %}" 
-                        class="duration-300 rounded-lg border-2 shadow-md border-indigo-400 py-1 px-2 flex justify-center items-center text-indigo-500 font-bold hover:bg-indigo-400 hover:text-white hover:shadow-lg">
+                        class="{% if user.is_authenticated %} w-5/6 {% else %} w-full {% endif %} duration-300 rounded-lg border-2 shadow-md border-indigo-400 py-1 px-2 flex justify-center items-center text-indigo-500 font-bold hover:bg-indigo-400 hover:text-white hover:shadow-lg">
                         View Detail
                     </a>
+                    {% if user.is_authenticated %}
+                        {% if request.user not in pill.users.all %}
+                        <a href="{% url 'users:add' pk=pill.pk %}"
+                            class="ml-4 w-1/6 duration-300 rounded-lg border-2 shadow-md border-green-500 py-1 px-2 flex justify-center items-center text-green-500 font-bold hover:bg-green-500 hover:text-white hover:shadow-lg">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                        {% else %}
+                        <a href="{% url 'users:delete' pk=pill.pk %}"
+                            class="ml-4 w-1/6 duration-300 rounded-lg border-2 shadow-md border-red-500 py-1 px-2 flex justify-center items-center text-red-500 font-bold hover:bg-red-500 hover:text-white hover:shadow-lg">
+                            <i class="fa fa-minus"></i>
+                        </a>
+                        {% endif %}
+                    {% endif %}
                 </div>
 
             </article>

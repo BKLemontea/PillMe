@@ -18,9 +18,9 @@ class Pill(models.Model):
     line_front = models.CharField(max_length=10, blank=True, null=True) # 분할선 앞
     line_back = models.CharField(max_length=10, blank=True, null=True) # 분할선 뒤
     
-    major_axis = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True) # 장축
-    minor_axis = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True) # 단축
-    thickness = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True) # 두께
+    major_axis = models.CharField(max_length=10, blank=True, null=True) # 장축
+    minor_axis = models.CharField(max_length=10, blank=True, null=True) # 단축
+    thickness = models.CharField(max_length=10, blank=True, null=True) # 두께
     
     date = models.DateField(auto_now=False, auto_now_add=False, blank=True, null=True)
     

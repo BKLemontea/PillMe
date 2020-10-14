@@ -30,6 +30,12 @@
                             </a>
                         {% endif %}
                     </div>
+
+                    <div class="mt-3">
+                        <a href="{% url 'schedules:add' pk=pill.pk %}">
+                            <div class="btn text-white font-semibold bg-gray-700 hover:scale-105 shadow-lg">스케줄링 추가</div>
+                        </a>
+                    </div>
                     {% endif %}
                    
                 </div>
@@ -41,12 +47,12 @@
                             <tr>
                                 <th class="text-gray-800">품명</th>
                                 <td class="w-2/3 lg:w-4/5 pl-5">
-                                    {{pill.name}}
+                                    {{pill.name|truncatechars:15}}
                                 </td>
                             </tr>
                             <tr>
                                 <th class="text-gray-800">성상</th>
-                                <td class=" pl-5">{{pill.nature}}</td>
+                                <td class=" pl-5">{{pill.nature|truncatechars:15}}</td>
                             </tr>
                             <tr>
                                 <th class="text-gray-800">모양</th>
